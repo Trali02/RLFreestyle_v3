@@ -1,0 +1,53 @@
+﻿<Application x:Class="RLFreestyle_v3.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:RLFreestyle_v3"
+             xmlns:viewModel="clr-namespace:RLFreestyle_v3.MVVM.ViewModel"
+             xmlns:view="clr-namespace:RLFreestyle_v3.MVVM.View"
+             ShutdownMode="OnMainWindowClose"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="BackgroundColor">#FF1a1a1c</SolidColorBrush>
+            <SolidColorBrush x:Key="HighlightColor">#FF7AC1FF</SolidColorBrush>
+            <SolidColorBrush x:Key="ButtonHighlightColor">#FF323236</SolidColorBrush>
+            <SolidColorBrush x:Key="ButtonSelectColor">#FF262629</SolidColorBrush>
+            <SolidColorBrush x:Key="ButtonBackgroundColor">#FF252526</SolidColorBrush>
+            
+            <DataTemplate DataType="{x:Type viewModel:MatchViewModel}">
+                <view:MatchView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:ServerViewModel}">
+                <view:ServerView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:FileViewModel}">
+                <view:FileView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:AddPlayerViewModel}">
+                <view:AddPlayerView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:AddShotViewModel}">
+                <view:AddShotView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:HostViewModel}">
+                <view:HostView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:ClientViewModel}">
+                <view:ClientView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:StreamViewModel}">
+                <view:StreamView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:TurneyViewModel}">
+                <view:TurneyView/>
+            </DataTemplate>
+            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/MainMenu.xaml"/>
+                <ResourceDictionary Source="Themes/Match.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

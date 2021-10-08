@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="MVVM\View\dropdown.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="KeraLua" Version="1.2.15" />
+    <PackageReference Include="NLua" Version="1.5.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Themes\icons\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="MVVM\View\dropdown.png" />
+  </ItemGroup>
+
+</Project>

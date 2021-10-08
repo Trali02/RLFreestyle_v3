@@ -1,0 +1,42 @@
+﻿<Window x:Class="RLFreestyle_v3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RLFreestyle_v3"
+        xmlns:viewModel="clr-namespace:RLFreestyle_v3.MVVM.ViewModel"
+        mc:Ignorable="d"
+        Closing="Window_Closing"
+        Title="MainWindow" Height="450" Width="800" Background="{DynamicResource ButtonHighlightColor}">
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Background="{DynamicResource BackgroundColor}">
+            <ContentControl Content="{Binding CurrentView, Mode=TwoWay}" Margin="5"/>
+        </Grid>
+
+        <StackPanel Grid.Column="1" Orientation="Horizontal">
+            <StackPanel.LayoutTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </StackPanel.LayoutTransform>
+            <RadioButton Content="Match" Width="50" Style="{StaticResource MenuButton}" Command="{Binding MatchViewCommand}" IsEnabled="{Binding Enabled}"/>
+            <RadioButton Content="Turney" Width="50" Style="{StaticResource MenuButton}" Command="{Binding TurneyViewCommand}"/>
+            <RadioButton Content="Files" Width="50" Style="{StaticResource MenuButton}" Command="{Binding FileViewCommand}" IsChecked="True"/>
+            <RadioButton Content="Server" Width="50" Style="{StaticResource MenuButton}" Command="{Binding ServerViewCommand}"/>
+            <RadioButton Content="Stream" Width="50" Style="{StaticResource MenuButton}" Command="{Binding StreamViewCommand}"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

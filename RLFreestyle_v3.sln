@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RLFreestyle_v3", "RLFreestyle_v3.csproj", "{ABD044AA-886D-46EA-8636-DD7A2F9D901D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABD044AA-886D-46EA-8636-DD7A2F9D901D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABD044AA-886D-46EA-8636-DD7A2F9D901D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABD044AA-886D-46EA-8636-DD7A2F9D901D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABD044AA-886D-46EA-8636-DD7A2F9D901D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B71A7775-1931-4FFE-8E8E-467BB6D81B2A}
+	EndGlobalSection
+EndGlobal

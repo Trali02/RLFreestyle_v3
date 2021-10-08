@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="RLFreestyle_v3.MVVM.View.AddPlayerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RLFreestyle_v3.MVVM.View"
+             xmlns:viewModel="clr-namespace:RLFreestyle_v3.MVVM.ViewModel"
+             xmlns:model="clr-namespace:RLFreestyle_v3.MVVM.Model"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <model:MultiBoolConverter x:Key="MultiBoolConverter"/>
+    </UserControl.Resources>
+    <Grid Background="#8F0F0F0F">
+        <Grid Height="200" Background="{DynamicResource BackgroundColor}">
+            <Grid Width="300">
+                <TextBlock Text="Name: " Height="30" VerticalAlignment="Top"/>
+                <TextBox Name="PlayerName" Height="30" VerticalAlignment="Top" Margin="0,30,0,0" Text="{Binding Name,Mode=TwoWay}"/>
+                <TextBlock Text="Rank: " Height="30" VerticalAlignment="Center" Margin="4,4,4,30"/>
+                <ComboBox Name="PlayerRank"  Height="30" VerticalAlignment="Center" Margin="0,30,0,0" ItemsSource="{Binding Ranks,Mode=TwoWay}" SelectedItem="{Binding SelectedRank,Mode=TwoWay}" DisplayMemberPath="Name"/>
+                <Grid Height="30" VerticalAlignment="Bottom" Margin="0,0,0,4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Content="x" Command="{Binding CloseView,Mode=TwoWay}" Grid.Column="0" Style="{StaticResource Left}" Background="{DynamicResource ButtonSelectColor}" Foreground="White"/>
+                    <Button Content="+" Command="{Binding AddPlayer,Mode=TwoWay}"  Grid.Column="1" Style="{StaticResource Right}" Background="{DynamicResource ButtonSelectColor}" Foreground="White">
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource MultiBoolConverter}" Mode="TwoWay">
+                                <Binding ElementName="PlayerName" Path="Text"/>
+                                <Binding ElementName="PlayerRank" Path="SelectedIndex"/>
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                    </Button>
+                </Grid>
+            </Grid>
+            
+        </Grid>
+    </Grid>
+</UserControl>

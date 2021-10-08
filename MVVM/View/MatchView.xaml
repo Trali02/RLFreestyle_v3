@@ -1,0 +1,145 @@
+﻿<UserControl x:Class="RLFreestyle_v3.MVVM.View.MatchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RLFreestyle_v3.MVVM.View"
+             xmlns:viewModel="clr-namespace:RLFreestyle_v3.MVVM.ViewModel" 
+             xmlns:model="clr-namespace:RLFreestyle_v3.MVVM.Model"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <model:MultiTextConverter x:Key="MultiTextConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content=":" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" Foreground="White" Height="30"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Save" Background="{DynamicResource ButtonSelectColor}" Foreground="White" Command="{Binding SaveGame}">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource MultiTextConverter}" Mode="TwoWay">
+                        <Binding ElementName="BlueName" Path="Text"/>
+                        <Binding ElementName="OrangeName" Path="Text"/>
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
+            <TextBlock Text="Game" Grid.Column="1" VerticalAlignment="Center" Foreground="White" FontSize="16" Margin="5,0,0,0" HorizontalAlignment="Left" Width="45"/>
+            <TextBlock Text="{Binding GameCount}" Grid.Column="1" VerticalAlignment="Center" Foreground="White" FontSize="16" Margin="50,0,0,0"/>
+            <ListBox Grid.ColumnSpan="2" Grid.Row="1" Margin="2" Background="Transparent"
+                     Name="PlayerList"
+                     ItemsSource="{Binding Players,Mode=TwoWay}" SelectedItem="{Binding SelectedPlayer}" DisplayMemberPath="Name"
+                     PreviewMouseLeftButtonDown="PlayerList_PreviewMouseLeftButtonDown">
+            </ListBox>
+            <Button Grid.Row="2" Background="{DynamicResource ButtonSelectColor}" Foreground="White" Content="+" Command="{Binding AddPlayer}"/>
+            <Button Grid.Row="2" Grid.Column="1" Background="{DynamicResource ButtonSelectColor}" Foreground="White" Content="-" Command="{Binding RemovePlayer}" IsEnabled="{Binding ElementName=PlayerList, Path=SelectedItems.Count}"/>
+        </Grid>
+
+        <Grid Grid.Column="1" Name="PlayerBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Margin="0,0,75,0">
+                <TextBlock Text="{Binding PlayerBlue.Name}" Name="BlueName" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontSize="16" Margin="4"/>
+
+                <Menu Background="Transparent" IsEnabled="{Binding ElementName=BlueName,Path=Text.Length}">
+                    <MenuItem Width="15" Height="30" VerticalAlignment="Center">
+                        <MenuItem.Header>
+                            <Image Source="/MVVM/View/dropdown.png" Height="12" Margin="-4,0,-2,3"/>
+                        </MenuItem.Header>
+                        <MenuItem Header="Clear" Command="{Binding ClearPlayerBlue}"/>
+                    </MenuItem>
+                </Menu>
+
+            </StackPanel>
+            <TextBlock Text="{Binding PlayerBlue.Points}" Name="BluePoints" Grid.Column="1" VerticalAlignment="Center" Foreground="White" FontSize="16" TextAlignment="Right" Margin="0,0,4,0" HorizontalAlignment="Right" Width="69">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <ListBox Grid.Row="1" Grid.ColumnSpan="2" Margin="2"
+                     ItemsSource="{Binding PlayerBlue.Shots}"
+                     Background="{DynamicResource BlueBackground}" 
+                     Name="BlueShotList" SelectedItem="{Binding SelectedBlueShot}"
+                     AllowDrop="True" Drop="Blue_Drop">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding Path=Name}" ToolTipService.ToolTip="{Binding Path=Value}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Grid.Row="2" Grid.Column="0" Background="{DynamicResource ButtonSelectColor}" Foreground="White" Content="+" IsEnabled="{Binding ElementName=BlueName, Path=Text.Length}" Command="{Binding AddShotBlue}"/>
+            <Button Grid.Row="2" Grid.Column="1" Background="{DynamicResource ButtonSelectColor}" Foreground="White" Content="-" IsEnabled="{Binding ElementName=BlueShotList, Path=SelectedItems.Count}"  Command="{Binding RemoveShotBlue}"/>
+        </Grid>
+        <Grid Grid.Column="2" Name="PlayerOrange">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Grid.ColumnSpan="2" Margin="75,0,0,0">
+                <TextBlock Text="{Binding PlayerOrange.Name}" Name="OrangeName" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="White" FontSize="16" Margin="4"/>
+
+                <Menu Background="Transparent" IsEnabled="{Binding ElementName=BlueName,Path=Text.Length}">
+                    <MenuItem Width="15" Height="30" VerticalAlignment="Center">
+                        <MenuItem.Header>
+                            <Image Source="/MVVM/View/dropdown.png" Height="12" Margin="-4,0,-2,3"/>
+                        </MenuItem.Header>
+                        <MenuItem Header="Clear" Command="{Binding ClearPlayerOrange}"/>
+                    </MenuItem>
+                </Menu>
+
+            </StackPanel>
+            <TextBlock Text="{Binding PlayerOrange.Points}" Name="OrangePoints" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontSize="16" Margin="4" Width="69"/>
+            <ListBox  Grid.Row="1" Grid.ColumnSpan="2" Margin="2"
+                      ItemsSource="{Binding PlayerOrange.Shots}"
+                      Background="{DynamicResource OrangeBackground}"
+                      Name="OrangeShotList" SelectedItem="{Binding SelectedOrangeShot}"
+                      AllowDrop="True" Drop="Orange_Drop">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding Path=Name}" ToolTipService.ToolTip="{Binding Path=Value}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Grid.Row="2" Grid.Column="0" Background="{DynamicResource ButtonSelectColor}" Foreground="White" Content="+" IsEnabled="{Binding ElementName=OrangeName, Path=Text.Length}" Command="{Binding AddShotOrange}"/>
+            <Button Grid.Row="2" Grid.Column="1" Background="{DynamicResource ButtonSelectColor}" Foreground="White" Content="-" IsEnabled="{Binding ElementName=OrangeShotList, Path=SelectedItems.Count}" Command="{Binding RemoveShotOrange}"/>
+        </Grid>
+        <ContentControl Content="{Binding CurrentView, Mode=TwoWay}" Panel.ZIndex="10" Grid.ColumnSpan="3"/>
+    </Grid>
+</UserControl>
